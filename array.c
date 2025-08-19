@@ -1,7 +1,6 @@
-#include <iostream>
-using namespace std;
+#include <stdio.h>
 
-const int MAX = 100;
+#define MAX 100
 int arr[MAX];
 int size = 0;
 
@@ -10,11 +9,11 @@ void insert(int value) {
         arr[size] = value;
         size++;
     } else {
-        cout << "Array is full.\n";
+        printf("Array is full.\n");
     }
 }
 
-void remove(int value) {
+void removeElement(int value) {
     int pos = -1;
     for (int i = 0; i < size; i++) {
         if (arr[i] == value) {
@@ -23,7 +22,7 @@ void remove(int value) {
         }
     }
     if (pos == -1) {
-        cout << "Value not found.\n";
+        printf("Value not found.\n");
         return;
     }
     for (int i = pos; i < size - 1; i++) {
@@ -47,48 +46,54 @@ void sortArray() {
 void search(int value) {
     for (int i = 0; i < size; i++) {
         if (arr[i] == value) {
-            cout << "Found at position " << i << ".\n";
+            printf("Found at position %d.\n", i);
             return;
         }
     }
-    cout << "Not found.\n";
+    printf("Not found.\n");
 }
 
 void display() {
     for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
+        printf("%d ", arr[i]);
     }
-    cout << "\n";
+    printf("\n");
 }
 
 int main() {
     int choice, value;
 
-    while (true) {
-        cout << "\n1. Insert\n2. Delete\n3. Sort\n4. Search\n5. Display\n6. Exit\n";
-        cout << "Enter choice: ";
-        cin >> choice;
+    while (1) {
+        printf("\n1. Insert\n2. Delete\n3. Sort\n4. Search\n5. Display\n6. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
 
-        if (choice == 1) {
-            cout << "Enter value: ";
-            cin >> value;
-            insert(value);
-        } else if (choice == 2) {
-            cout << "Enter value to delete: ";
-            cin >> value;
-            remove(value);
-        } else if (choice == 3) {
-            sortArray();
-        } else if (choice == 4) {
-            cout << "Enter value to search: ";
-            cin >> value;
-            search(value);
-        } else if (choice == 5) {
-            display();
-        } else if (choice == 6) {
-            break;
-        } else {
-            cout << "Invalid choice.\n";
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insert(value);
+                break;
+            case 2:
+                printf("Enter value to delete: ");
+                scanf("%d", &value);
+                removeElement(value);
+                break;
+            case 3:
+                sortArray();
+                break;
+            case 4:
+                printf("Enter value to search: ");
+                scanf("%d", &value);
+                search(value);
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+                return 0;
+            default:
+                printf("Invalid choice.\n");
         }
     }
 
