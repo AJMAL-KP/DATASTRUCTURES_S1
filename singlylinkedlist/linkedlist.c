@@ -65,6 +65,68 @@ void insertAtpos(int value, int pos) {
 
 }
 
+void deleteFirst() {
+    if (head == NULL){
+        printf("Linked list is empty \n");
+        return;
+    }
+
+    struct node* temp=head;
+    head=head->next;
+    free(temp);
+}
+
+void deleteEnd(){
+    if (head == NULL){
+        printf("LL is empty \n");
+        return;
+    }
+
+    if(head->next == NULL){
+        free(head);
+        head=NULL;
+        return;
+        
+    }
+
+    struct node* temp = head;
+    struct node* prev =NULL;
+
+    while(temp->next != NULL) {
+        prev=temp;
+        temp=temp->next;
+    }
+    free(temp);
+    prev->next=NULL;
+
+}
+
+void deleteAtpos(int pos){
+
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    if (pos==1){
+        deleteFirst();
+        return;
+    }
+
+    struct node* temp = head;
+
+    for(int i=1;i<pos-1 && temp != NULL;i++){
+        temp=temp->next;
+    }
+
+    struct node* del= temp->next;
+    temp->next = del->next;
+    free(del);
+    
+
+
+}
+
 
 
 void display() {
@@ -88,7 +150,7 @@ void display() {
 int main() {
     int op, value, pos;
     while (1) {
-        printf("\n1.Insert at begining\n2.Insert at end.\n3.Insert at position\n4.Delete\n5.Display\n6.Exit\n");
+        printf("\n1.Insert at begining\n2.Insert at end.\n3.Insert at position\n4.Delete First node\n5.Delete last node\n6.Delete from position\n7.Display\n8.Exit\n");
         printf("Choose Operation: ");
         scanf("%d", &op);
 
@@ -110,15 +172,23 @@ int main() {
                 scanf("%d", &pos);
                 insertAtpos(value, pos);
                 break;
-            // case 4:
-            //     printf("Enter Number to delete: ");
-            //     scanf("%d", &value);
-            //     deleteNode(value);
-            //     break;
             case 4:
-                display();
+                printf("First node deleted\n");
+                deleteFirst();
                 break;
             case 5:
+                printf("last node deleted\n");
+                deleteEnd();
+                break;
+            case 6:
+                printf("Enter node position to delete: ");
+                scanf("%d", &pos);
+                deleteAtpos(pos);
+                break;
+            case 7:
+                display();
+                break;
+            case 8:
                 return 0;
             default:
                 printf("Invalid Operation\n");
