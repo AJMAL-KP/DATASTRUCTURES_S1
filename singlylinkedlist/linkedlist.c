@@ -127,6 +127,29 @@ void deleteAtpos(int pos){
 
 }
 
+void search(int value){
+    if(head == NULL){
+        printf("List is empty\n");
+        return;
+    }
+    
+    int found=0;
+    struct node* temp=head;
+    for(int i=1; i > 0 && temp != NULL;i++){
+        if( temp->data == value){
+            printf("Element %d found at %d position\n", value,i);
+            found=1;
+            
+        }
+        temp=temp->next;
+        
+
+    }
+    if (found==0) {
+        printf("No such element in list\n");
+    }
+}
+
 
 
 void display() {
@@ -150,7 +173,7 @@ void display() {
 int main() {
     int op, value, pos;
     while (1) {
-        printf("\n1.Insert at begining\n2.Insert at end.\n3.Insert at position\n4.Delete First node\n5.Delete last node\n6.Delete from position\n7.Display\n8.Exit\n");
+        printf("\n1.Insert at begining\n2.Insert at end.\n3.Insert at position\n4.Delete First node\n5.Delete last node\n6.Delete from position\n7.Search\n8.Display\n9.Exit\n");
         printf("Choose Operation: ");
         scanf("%d", &op);
 
@@ -186,9 +209,14 @@ int main() {
                 deleteAtpos(pos);
                 break;
             case 7:
-                display();
+                printf("Enter data to search:");
+                scanf("%d",&value);
+                search(value);
                 break;
             case 8:
+                display();
+                break;
+            case 9:
                 return 0;
             default:
                 printf("Invalid Operation\n");
