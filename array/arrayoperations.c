@@ -15,36 +15,32 @@ void insert(){
 
 
 int search(int num){
-    for(int i=0;i<size;i++)
-    {
-        if ( arr[i]==num){
+    for(int i=0;i<size;i++){
+        if (arr[i] == num){
             return i;
         }
     }
-
+    return -1; 
 }
 
-int delete(){
 
-    printf("enter the number you want to delete:\n");
-    scanf("%d",&num);
-    pos=search(num);
-    for(int i=pos; i<size;i++)
-    {
-        if(i==size-1){
-            arr[i]=0;
-        }
-        else{
-        arr[i]=arr[i+1];
-       
+void delete(){
+    printf("Enter the number you want to delete:\n");
+    scanf("%d", &num);
+    pos = search(num);
+
+    if (pos == -1) {
+        printf("Element not found\n");
+        return;
     }
 
-
+    for (int i = pos; i < size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    size--;
+    printf("Element deleted successfully\n");
 }
 
-
-
-}
 
 void display(){
 
@@ -54,17 +50,20 @@ void display(){
     }
 }
 
-void sort(){
-    for(int i=1;i<size;i++){
-        if ( arr[i] < arr[i-1]) {
-            int temp = arr[i -1];
-            arr[i-1] = arr[i];
-            arr[i]= temp;
+void sort() {
+    for (int j = 0; j < size - 1; j++) {
+        for (int i = 0; i < size - j - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+            }
         }
     }
-    printf("Final sorted array is: \n");
+    printf("Final sorted array is:\n");
     display();
 }
+
 
 
 int main() {
@@ -95,7 +94,10 @@ case 4:
     printf("Enter the number you want to search?\n");
     scanf("%d",&num);
     pos=search(num);
-    printf("number found at %d position \n", pos);
+    if (pos != -1)
+        printf("Number found at index %d\n", pos);
+    else
+        printf("Number not found\n");
     break;
 
 case 5:
