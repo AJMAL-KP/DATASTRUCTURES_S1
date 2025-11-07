@@ -24,7 +24,14 @@ int main() {
    printf("Enter the adjacency");
     for(int i=0;i<e;i++){
         scanf("%d %d",&u,&v);
-        graph[u][v]=1;
+        if(graph[v][u]==1){
+            printf("cant be 1 \n");
+            graph[u][v]=0;
+            e++;
+        }else{
+          graph[u][v]=1;  
+        }
+        
         
     }
 
