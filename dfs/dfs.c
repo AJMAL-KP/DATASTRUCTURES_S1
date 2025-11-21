@@ -2,37 +2,46 @@
 #define MAX 10
 
 int adj[MAX][MAX];
-int queue[MAX];
-int front=-1,rear=-1;
+int stack[MAX];
+int top=-1;
 int visited[MAX];
 
-void enqueue(int start){
-        if(front==-1|| rear==-1){
-            front++;
+void push(int start){
+        if(top==MAX-1){
+            printf("limit exceeded");
            
         }
-        queue[++rear]=start;
+        top++;
+        stack[top]=start;
 }
 
-int dequeue(){
-    return queue[front++];
+int pop(){
+    if(top>-1){
+        int v=stack[top];
+        top--;
+        return v;
+    }
+    return;
 }
 
-void BFS(int start,int vertices){
+
+void DFS(int start,int vertices){
     int current;
-    enqueue(start);
-    visited[start]=1;
-
+    push(start);
     
-    while(front<=rear){
-    current=dequeue();
-    printf("%d ",current);
+    while(top>-1){
+    current=pop();
+    
+    if(!visited[current]){
+        visited[current]=1;
+        printf("%d ",current);
+    }
 
-    for(int i=0;i<vertices;i++){
+    for(int i=vertices-1;i>=0;i--){
         if(adj[current][i] && !visited[i]){
+            // visited[i]=1;
+            push(i);
             
-            enqueue(i);
-            visited[i]=1;
         }
     }
     }
@@ -64,6 +73,6 @@ int main(){
 
     for(int i=0;i<vertices;i++){
         if(!visited[i])
-        BFS(i,vertices);
+        DFS(i,vertices);
     }
 }
